@@ -24,7 +24,7 @@ const TarefaMaisLongaIntentHandler = {
       await getRemoteData('http://177.55.114.52/dash/Alexa/piramide/tarefa_mais_longa.php')
         .then((response) => {
           const data = JSON.parse(response);
-     outputSpeech = ` ${data.result} `;
+     outputSpeech = ` ${data[0].result} `;
     })
         .catch((err) => {
           console.log(`ERROR: ${err.message}`);
