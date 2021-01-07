@@ -40,45 +40,18 @@ const TarefaMaisLongaIntentHandler = {
   };
 
   
-const ConsultaPendentesIntentHandler = {
+const TarefaMaisCurtaIntentHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
-            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'ConsultaPendentesIntent';
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'TarefaMaisCurtaIntent';
     },
     async handle(handlerInput) {
-      let outputSpeech = 'This is the default message.';
+      let outputSpeech = 'A conexão falhou.';
   
-      await getRemoteData('http://177.55.114.52/dash/Alexa/alexa_tarefas_pendentes.php?tipo=PEN&local=961')
+      await getRemoteData('http://177.55.114.52/dash/Alexa/piramide/tarefa_mais_curta.php')
         .then((response) => {
           const data = JSON.parse(response);
-         outputSpeech = `Existem ${data[0].esc} tarefas escalonadas, ${data[0].ven} vencidas, ${data[0].ale} em alerta e ${data[0].abe} abertas`;
-    })
-        .catch((err) => {
-          console.log(`ERROR: ${err.message}`);
-          // set an optional error message here
-          // outputSpeech = err.message;
-        });
-  
-      return handlerInput.responseBuilder
-        .speak(outputSpeech)
-        .reprompt('speakOutput')
-        .getResponse();
-    },
-  };
-
-  
-const ConsultaFinalizadasIntentHandler = {
-    canHandle(handlerInput) {
-        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
-            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'ConsultaFinalizadasIntent';
-    },
-    async handle(handlerInput) {
-      const intentName = handlerInput.requestEnvelope.request.intent.slots.param_time.resolutions.resolutionsPerAuthority[0].values[0].value.id; 
-      let outputSpeech =  `Você está procurando  ${intentName}`;
-      await getRemoteData('http://177.55.114.52/dash/Alexa/alexa_tarefas_pendentes.php?tipo=FIN&local=961&time=' + intentName) 
-        .then((response) => {
-          const data = JSON.parse(response);
-     outputSpeech = `Foram executadas ${data[0].prazo} tarefas estão no prazo e ${data[0].atrasada} atrasadas. `;
+     outputSpeech = ` ${data[0].result} `;
     })
         .catch((err) => {
           console.log(`ERROR: ${err.message}`);
@@ -93,37 +66,6 @@ const ConsultaFinalizadasIntentHandler = {
     },
   };
 
-  
-  const ConsultaEscalonamentoIntentHandler = {
-    canHandle(handlerInput) {
-        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
-            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'ConsultaEscalonamentoIntent';
-    },
-    async handle(handlerInput) {
-      let outputSpeech = 'No nível diretoria executiva. ';
-  
-      await getRemoteData('http://177.55.114.52/dash/Alexa/alexa_escalonamento.php')
-        .then((response) => {
-          const data = JSON.parse(response);
-         // $const = ${data.length};
-            for(var i=0; i< data.length ; i++)
-          {
-           outputSpeech =  outputSpeech.concat(` Na hierarquia de  ${data[i].responsavel} possui ${data[i].number} tarefas escalonadas. `);
-          }
-
-        })
-        .catch((err) => {
-          console.log(`ERROR: ${err.message}`);
-          // set an optional error message here
-          // outputSpeech = err.message;
-        });
-  
-      return handlerInput.responseBuilder
-        .speak(outputSpeech)
-        .reprompt(outputSpeech)
-        .getResponse();
-    },
-  };
 const HelpIntentHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
@@ -216,9 +158,7 @@ exports.handler = Alexa.SkillBuilders.custom()
     .addRequestHandlers(
         LaunchRequestHandler,
         TarefaMaisLongaIntentHandler,
-        ConsultaPendentesIntentHandler,
-        ConsultaFinalizadasIntentHandler,
-        ConsultaEscalonamentoIntentHandler,
+        TarefaMaisCurtaIntentHandler,
         HelpIntentHandler,
         CancelAndStopIntentHandler,
         SessionEndedRequestHandler,
