@@ -13,18 +13,18 @@ const LaunchRequestHandler = {
             .getResponse();
     }
 };
-const ConsultaAndamentoIntentHandler = {
+const TarefaMaisLongaIntentHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
-            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'ConsultaAndamentoIntent';
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'TarefaMaisLongaIntent';
     },
     async handle(handlerInput) {
       let outputSpeech = 'This is the default message.';
   
-      await getRemoteData('http://177.55.114.52/dash/Alexa/alexa_tarefas_pendentes.php?tipo=AND&local=961')
+      await getRemoteData('http://177.55.114.52/dash/Alexa/piramide/tarefa_mais_longa.php')
         .then((response) => {
           const data = JSON.parse(response);
-     outputSpeech = ` ${data[0].prazo} tarefas estão no prazo e ${data[0].atrazo} atrasadas. `;
+     outputSpeech = ` ${data[0].result} `;
     })
         .catch((err) => {
           console.log(`ERROR: ${err.message}`);
@@ -215,7 +215,7 @@ const getRemoteData = (url) => new Promise((resolve, reject) => {
 exports.handler = Alexa.SkillBuilders.custom()
     .addRequestHandlers(
         LaunchRequestHandler,
-        ConsultaAndamentoIntentHandler,
+        TarefaMaisLongaIntentHandler,
         ConsultaPendentesIntentHandler,
         ConsultaFinalizadasIntentHandler,
         ConsultaEscalonamentoIntentHandler,
