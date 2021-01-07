@@ -19,12 +19,12 @@ const TarefaMaisLongaIntentHandler = {
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'TarefaMaisLongaIntent';
     },
     async handle(handlerInput) {
-      let outputSpeech = 'This is the default message.';
+      let outputSpeech = 'A conexão falhou.';
   
       await getRemoteData('http://177.55.114.52/dash/Alexa/piramide/tarefa_mais_longa.php')
         .then((response) => {
           const data = JSON.parse(response);
-     outputSpeech = ` ${data[0].result} `;
+     outputSpeech = ` ${data.result} `;
     })
         .catch((err) => {
           console.log(`ERROR: ${err.message}`);
