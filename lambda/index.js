@@ -6,7 +6,7 @@ const LaunchRequestHandler = {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
     },
     handle(handlerInput) {
-        const speakOutput = 'Olá Ráfael, gostaria de consultar as atividades em andamento. pendentes. finalizadas. ou o dash de escalonadas?';
+        const speakOutput = 'Bom dia, sou sua assistente de voz.';
         return handlerInput.responseBuilder
             .speak(speakOutput)
             .reprompt(speakOutput)
@@ -49,6 +49,32 @@ const TarefaMaisCurtaIntentHandler = {
       let outputSpeech = 'A conexão falhou.';
   
       await getRemoteData('http://177.55.114.52/dash/Alexa/piramide/tarefa_mais_curta.php')
+        .then((response) => {
+          const data = JSON.parse(response);
+     outputSpeech = ` ${data[0].result} `;
+    })
+        .catch((err) => {
+          console.log(`ERROR: ${err.message}`);
+          // set an optional error message here
+          // outputSpeech = err.message;
+        });
+  
+      return handlerInput.responseBuilder
+        .speak(outputSpeech)
+        .reprompt('add a reprompt if you want to keep the session open for the user to respond')
+        .getResponse();
+    },
+  };
+
+const ResumoExecutantesIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'ResumoExecutantesIntent';
+    },
+    async handle(handlerInput) {
+      let outputSpeech = 'A conexão falhou.';
+  
+      await getRemoteData('http://177.55.114.52/dash/Alexa/piramide/resumo_executantes.php')
         .then((response) => {
           const data = JSON.parse(response);
      outputSpeech = ` ${data[0].result} `;
@@ -159,6 +185,7 @@ exports.handler = Alexa.SkillBuilders.custom()
         LaunchRequestHandler,
         TarefaMaisLongaIntentHandler,
         TarefaMaisCurtaIntentHandler,
+        ResumoExecutantesIntentHandler,
         HelpIntentHandler,
         CancelAndStopIntentHandler,
         SessionEndedRequestHandler,
