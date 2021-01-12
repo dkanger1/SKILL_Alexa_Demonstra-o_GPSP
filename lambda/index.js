@@ -6,7 +6,7 @@ const LaunchRequestHandler = {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
     },
     handle(handlerInput) {
-        const speakOutput = 'Bom dia, sou sua assistente de voz. São 19:45 10/05 09:15';
+        const speakOutput = 'Bom dia, sou sua assistente de voz.';
         return handlerInput.responseBuilder
             .speak(speakOutput)
             .reprompt(speakOutput)
