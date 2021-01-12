@@ -100,7 +100,7 @@ const ResumoDoDiaIntentHandler = {
     async handle(handlerInput) {
       let outputSpeech = 'A conexão falhou.';
   
-      await getRemoteData('http://177.55.114.52/dash/Alexa/piramide/resumo_executantes.php')
+      await getRemoteData('http://177.55.114.52/dash/Alexa/piramide/resumo_dia.php')
         .then((response) => {
           const data = JSON.parse(response);
      outputSpeech = ` ${data[0].result} `;
