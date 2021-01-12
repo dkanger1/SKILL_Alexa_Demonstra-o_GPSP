@@ -212,6 +212,7 @@ exports.handler = Alexa.SkillBuilders.custom()
         TarefaMaisLongaIntentHandler,
         TarefaMaisCurtaIntentHandler,
         ResumoExecutantesIntentHandler,
+        ResumoDoDiaIntentHandler,
         HelpIntentHandler,
         CancelAndStopIntentHandler,
         SessionEndedRequestHandler,
