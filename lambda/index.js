@@ -92,13 +92,39 @@ const ResumoExecutantesIntentHandler = {
     },
   };
 
+const ResumoDoDiaIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'ResumoDoDiaIntent';
+    },
+    async handle(handlerInput) {
+      let outputSpeech = 'A conexão falhou.';
+  
+      await getRemoteData('http://177.55.114.52/dash/Alexa/piramide/resumo_executantes.php')
+        .then((response) => {
+          const data = JSON.parse(response);
+     outputSpeech = ` ${data[0].result} `;
+    })
+        .catch((err) => {
+          console.log(`ERROR: ${err.message}`);
+          // set an optional error message here
+          // outputSpeech = err.message;
+        });
+  
+      return handlerInput.responseBuilder
+        .speak(outputSpeech)
+        .reprompt('add a reprompt if you want to keep the session open for the user to respond')
+        .getResponse();
+    },
+  };
+
 const HelpIntentHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.HelpIntent';
     },
     handle(handlerInput) {
-        const speakOutput = 'Você pode saber a quantidade de tarefas em andamento dizendo ANDAMENTO, as atividades pendentes dizendo Pendente. as concluídas dizendo finalizadas. Ou consultar o dashboard de escalonamento dizendo Escalonadas';
+        const speakOutput = 'Você pode saber quem executou as atividades, consultar a tarefa mais longa ou a mais curta, analisar um resumo dos executantes';
 
         return handlerInput.responseBuilder
             .speak(speakOutput)
