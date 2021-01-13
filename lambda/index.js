@@ -34,7 +34,7 @@ const TarefaMaisLongaIntentHandler = {
   
       return handlerInput.responseBuilder
         .speak(outputSpeech)
-        .reprompt('Você pode querer saber qual foi a tarefa mais curta, o resumo do dia ou o resumo dos colaboradores')
+     //   .reprompt('Você pode querer saber qual foi a tarefa mais curta, o resumo do dia ou o resumo dos colaboradores')
         .getResponse();
     },
   };
@@ -61,7 +61,7 @@ const TarefaMaisCurtaIntentHandler = {
   
       return handlerInput.responseBuilder
         .speak(outputSpeech)
-        .reprompt('você pode querer saber qual foi a tarefa mais curta, o resumo do dia ou o resumo dos colaboradores')
+   //     .reprompt('você pode querer saber qual foi a tarefa mais curta, o resumo do dia ou o resumo dos colaboradores')
         .getResponse();
     },
   };
@@ -87,7 +87,7 @@ const ResumoExecutantesIntentHandler = {
   
       return handlerInput.responseBuilder
         .speak(outputSpeech)
-        .reprompt('você pode querer saber qual foi a tarefa mais curta, o resumo do dia ou o resumo dos colaboradores')
+   //     .reprompt('você pode querer saber qual foi a tarefa mais curta, o resumo do dia ou o resumo dos colaboradores')
         .getResponse();
     },
   };
@@ -113,7 +113,7 @@ const ResumoDoDiaIntentHandler = {
   
       return handlerInput.responseBuilder
         .speak(outputSpeech)
-        .reprompt('você pode querer saber qual foi a tarefa mais curta, o resumo do dia ou o resumo dos colaboradores')
+       // .reprompt('você pode querer saber qual foi a tarefa mais curta, o resumo do dia ou o resumo dos colaboradores')
         .getResponse();
     },
   };
@@ -149,7 +149,7 @@ const HelpIntentHandler = {
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.HelpIntent';
     },
     handle(handlerInput) {
-        const speakOutput = 'Você pode consultar um resumo do dia, saber qual foi a tarefa mais longa ou a mais curta, analisar um resumo dos colaboradores';
+        const speakOutput = 'Você pode consultar um resumo do dia,  analisar um resumo dos colaboradores e saber qual foi a tarefa mais longa ou a mais curta.';
 
         return handlerInput.responseBuilder
             .speak(speakOutput)
