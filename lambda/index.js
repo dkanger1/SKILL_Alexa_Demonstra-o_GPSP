@@ -117,7 +117,32 @@ const ResumoDoDiaIntentHandler = {
         .getResponse();
     },
   };
-
+  
+const QuemExecutouIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'QuemExecutouIntent';
+    },
+    async handle(handlerInput) {
+      let outputSpeech = 'A conexão falhou.';
+  
+      await getRemoteData('http://177.55.114.52/dash/Alexa/piramide/executantes.php')
+        .then((response) => {
+          const data = JSON.parse(response);
+     outputSpeech = ` ${data[0].result} `;
+    })
+        .catch((err) => {
+          console.log(`ERROR: ${err.message}`);
+          // set an optional error message here
+          // outputSpeech = err.message;
+        });
+  
+      return handlerInput.responseBuilder
+        .speak(outputSpeech)
+        .reprompt('você pode querer saber qual foi a tarefa mais curta, o resumo do dia ou o resumo dos colaboradores')
+        .getResponse();
+    },
+  };
 const HelpIntentHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
@@ -213,6 +238,7 @@ exports.handler = Alexa.SkillBuilders.custom()
         TarefaMaisCurtaIntentHandler,
         ResumoExecutantesIntentHandler,
         ResumoDoDiaIntentHandler,
+        QuemExecutouIntentHandler,
         HelpIntentHandler,
         CancelAndStopIntentHandler,
         SessionEndedRequestHandler,
