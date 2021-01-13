@@ -149,7 +149,7 @@ const HelpIntentHandler = {
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.HelpIntent';
     },
     handle(handlerInput) {
-        const speakOutput = 'Você pode saber consultar um resumo do dia, saber qual foi a tarefa mais longa ou a mais curta, analisar um resumo dos colaboradores';
+        const speakOutput = 'Você pode consultar um resumo do dia, saber qual foi a tarefa mais longa ou a mais curta, analisar um resumo dos colaboradores';
 
         return handlerInput.responseBuilder
             .speak(speakOutput)
