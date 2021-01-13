@@ -6,7 +6,7 @@ const LaunchRequestHandler = {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
     },
     handle(handlerInput) {
-        const speakOutput = 'Bom dia, sou sua assistente de voz.';
+        const speakOutput = 'Olá, em que posso te ajudar?';
         return handlerInput.responseBuilder
             .speak(speakOutput)
             .reprompt(speakOutput)
@@ -34,7 +34,7 @@ const TarefaMaisLongaIntentHandler = {
   
       return handlerInput.responseBuilder
         .speak(outputSpeech)
-        .reprompt('add a reprompt if you want to keep the session open for the user to respond')
+        .reprompt('Você pode querer saber qual foi a tarefa mais curta, o resumo do dia ou o resumo dos colaboradores')
         .getResponse();
     },
   };
@@ -61,7 +61,7 @@ const TarefaMaisCurtaIntentHandler = {
   
       return handlerInput.responseBuilder
         .speak(outputSpeech)
-        .reprompt('add a reprompt if you want to keep the session open for the user to respond')
+        .reprompt('você pode querer saber qual foi a tarefa mais curta, o resumo do dia ou o resumo dos colaboradores')
         .getResponse();
     },
   };
@@ -87,7 +87,7 @@ const ResumoExecutantesIntentHandler = {
   
       return handlerInput.responseBuilder
         .speak(outputSpeech)
-        .reprompt('add a reprompt if you want to keep the session open for the user to respond')
+        .reprompt('você pode querer saber qual foi a tarefa mais curta, o resumo do dia ou o resumo dos colaboradores')
         .getResponse();
     },
   };
@@ -113,7 +113,7 @@ const ResumoDoDiaIntentHandler = {
   
       return handlerInput.responseBuilder
         .speak(outputSpeech)
-        .reprompt('add a reprompt if you want to keep the session open for the user to respond')
+        .reprompt('você pode querer saber qual foi a tarefa mais curta, o resumo do dia ou o resumo dos colaboradores')
         .getResponse();
     },
   };
@@ -124,7 +124,7 @@ const HelpIntentHandler = {
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.HelpIntent';
     },
     handle(handlerInput) {
-        const speakOutput = 'Você pode saber quem executou as atividades, consultar a tarefa mais longa ou a mais curta, analisar um resumo dos executantes';
+        const speakOutput = 'Você pode saber consultar um resumo do dia, saber qual foi a tarefa mais longa ou a mais curta, analisar um resumo dos colaboradores';
 
         return handlerInput.responseBuilder
             .speak(speakOutput)
