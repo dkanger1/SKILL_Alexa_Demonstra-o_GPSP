@@ -1,0 +1,65 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "usar pirâmide",
+      "intents": [
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": []
+        },
+        {
+          "name": "TarefaMaisLongaIntent",
+          "slots": [],
+          "samples": [
+            "Qual foi a atividade mais longa",
+            "Qual foi a tarefa mais longa",
+            "Qual a atividade mais demorada",
+            "Qual a tarefa mais longa"
+          ]
+        },
+        {
+          "name": "TarefaMaisCurtaIntent",
+          "slots": [],
+          "samples": [
+            "curta",
+            "Qual a menor tarefa",
+            "Qual a tarefa mais rápida",
+            "Qual foi a tarefa mais curta",
+            "Qual a tarefa mais curta"
+          ]
+        },
+        {
+          "name": "ResumoExecutantesIntent",
+          "slots": [],
+          "samples": [
+            "análise dos executantes",
+            "resumo dos colaboradores",
+            "resumo dos executantes"
+          ]
+        },
+        {
+          "name": "ResumoDoDiaIntent",
+          "slots": [],
+          "samples": [
+            "consultar resumo do dia",
+            "resumo do dia"
+          ]
+        }
+      ],
+      "types": []
+    }
+  },
+  "version": "7"
+}
